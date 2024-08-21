@@ -8,36 +8,28 @@ import { apiResponseCode } from "../helper.js";
 // @route POST /api/users/login
 // @access Public
 const authUser = asyncHandler(async (req, res) => {
-  const registerSchema = Joi.object({
-    name: Joi.string().required(),
+  const loginSchema = Joi.object({
     email: Joi.string().email().required(),
+    password: Joi.string().required(),
   });
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
 
-  try {
-    // validate user/client request
-    const { error } = registerSchema.validate(req.body);
+  const { error } = loginSchema.validate(req.body);
 
-    if (user) {
-      return res.status(400).json({
-        responseCode: apiResponseCode.BAD_REQUEST,
-        responseMessage: `${email} already exist`,
-        data: null,
-      });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      responseCode: apiResponseCode.INTERNAL_SERVER_ERR,
-      responseMessage: "Internal server error",
+  if (error) {
+    return res.status(400).json({
+      responseCode: apiResponseCode.BAD_REQUEST,
+      responseMessage: "Invalid credentials",
       data: null,
     });
   }
 
   if (user && (await user.matchPassword(password))) {
     res.json({
+      responseCode: apiResponseCode.SUCCESSFUL,
+      responseMessage: `${email} login successfully`,
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -47,8 +39,11 @@ const authUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
     });
   } else {
-    res.status(401);
-    throw new Error("Invalid Email or Password");
+    res.status(401).json({
+      responseCode: apiResponseCode.UNAUTHORIZED,
+      responseMessage: "Invalid Email or Password",
+      data: null,
+    });
   }
 });
 
@@ -56,19 +51,41 @@ const authUser = asyncHandler(async (req, res) => {
 // @route POST /api/users
 // @access Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const registerSchema = Joi.object({
+    name: Joi.string().required(),
+    email: Joi.string().email().required(),
+    phoneNumber: Joi.string().required(),
+    username: Joi.string().required(),
+    password: Joi.string().min(8).required(),
+  });
+
+  const { name, email, password, phoneNumber, username } = req.body;
 
   const userExists = await User.findOne({ email });
 
+  const { error } = registerSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({
+      responseCode: apiResponseCode.BAD_REQUEST,
+      responseMessage: error.details[0].message,
+      data: null,
+    });
+  }
+
   if (userExists) {
-    res.status(400);
-    throw new Error("User already exists");
+    res.status(400).json({
+      responseCode: apiResponseCode.BAD_REQUEST,
+      responseMessage: `${email} already exist`,
+      data: null,
+    });
   }
 
   const user = await User.create({
     name,
     email,
     password,
+    username,
+    phoneNumber,
   });
 
   if (user) {
@@ -77,6 +94,8 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      username: user.username,
+      phoneNumber: user.phoneNumber,
       token: generateToken(user._id),
     });
   } else {

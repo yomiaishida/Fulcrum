@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import { apiResponseCode } from "../helper";
+import { apiResponseCode } from "../helper.js";
 
 const userSchema = mongoose.Schema(
   {
