@@ -30,13 +30,15 @@ const authUser = asyncHandler(async (req, res) => {
     res.json({
       responseCode: apiResponseCode.SUCCESSFUL,
       responseMessage: `${email} login successfully`,
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      phoneNumber: user.phoneNumber,
-      username: user.username,
-      token: generateToken(user._id),
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        phoneNumber: user.phoneNumber,
+        username: user.username,
+        token: generateToken(user._id),
+      },
     });
   } else {
     res.status(401).json({
@@ -90,13 +92,17 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (user) {
     res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      username: user.username,
-      phoneNumber: user.phoneNumber,
-      token: generateToken(user._id),
+      responseCode: apiResponseCode.SUCCESSFUL,
+      responseMessage: `${email} registered successfully`,
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        username: user.username,
+        phoneNumber: user.phoneNumber,
+        token: generateToken(user._id),
+      },
     });
   } else {
     res.status(400);
