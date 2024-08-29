@@ -5,7 +5,7 @@ import Joi from "joi";
 import { apiResponseCode } from "../helper.js";
 
 // @desc Auth user & get token
-// @route POST /api/users/login
+// @route POST /api/auth/login
 // @access Public
 const authUser = asyncHandler(async (req, res) => {
   const loginSchema = Joi.object({
@@ -50,7 +50,7 @@ const authUser = asyncHandler(async (req, res) => {
 });
 
 // @desc Register a new user
-// @route POST /api/users
+// @route POST /api/auth/register
 // @access Public
 const registerUser = asyncHandler(async (req, res) => {
   const registerSchema = Joi.object({
@@ -74,8 +74,17 @@ const registerUser = asyncHandler(async (req, res) => {
     });
   }
 
+  const usernameExists = await User.findOne({ username });
+  if (usernameExists) {
+    return res.status(400).json({
+      responseCode: apiResponseCode.BAD_REQUEST,
+      responseMessage: `Username ${username} already exists`,
+      data: null,
+    });
+  }
+
   if (userExists) {
-    res.status(400).json({
+    return res.status(400).json({
       responseCode: apiResponseCode.BAD_REQUEST,
       responseMessage: `${email} already exist`,
       data: null,
