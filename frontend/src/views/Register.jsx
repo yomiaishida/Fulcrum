@@ -85,7 +85,7 @@ const Register = () => {
           </Button>
           <div className="my-10 text-center">
             Already have an account?{" "}
-            <Link to="/" className="text-[#1677ff]">
+            <Link to="/login" className="text-[#1677ff]">
               Login
             </Link>
           </div>
