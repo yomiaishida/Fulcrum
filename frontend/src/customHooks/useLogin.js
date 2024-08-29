@@ -1,39 +1,42 @@
 import { useState } from "react";
-import { axiosInstance } from "../api/axiosInstance.config";
-import { endpoints } from "../api/endpoints";
+import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../slices/usersApiSlice"; // Import RTK Query hook
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../slices/authSlice"; // Redux action
 import useNotification from "./useNotification";
-import { useNavigate } from "react-router-dom"
 
 const useLogin = () => {
   const [loading, setLoading] = useState(false);
   const { onNotify } = useNotification();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [login] = useLoginMutation(); // RTK Query mutation
 
-  // function to call for login
   const onLogin = async (request) => {
     setLoading(true);
     try {
-      const response = await axiosInstance.post(
-        endpoints.auth.login,
-        request
-      );
+      const response = await login(request).unwrap();
       setLoading(false);
 
-      if (response.data?.responseCode === "00") {
-        onNotify("success", "Successful", response?.data?.responseMessage);
-        sessionStorage.setItem("***", response.data?.data?.token)
+      if (response?.responseCode === "00") {
+        onNotify("success", "Successful", response?.responseMessage);
+
+        dispatch(setCredentials(response.data)); // Set user credentials in Redux store
         setTimeout(() => {
-            return navigate("/dashboard", {
-                replace: true
-            })
+          navigate("/dashboard", { replace: true });
         }, 2000);
       } else {
-        onNotify("error", "Error occured", response?.data?.responseMessage);
+        console.log(response);
+        onNotify("error", "Error occurred", response?.data?.responseMessage);
       }
     } catch (error) {
       setLoading(false);
       console.log(error);
-      onNotify("error", "Error occured", error.response?.data?.responseMessage);
+      onNotify(
+        "error",
+        "Error occurred",
+        error?.data?.responseMessage || error.error
+      );
     }
   };
 

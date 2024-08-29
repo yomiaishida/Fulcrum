@@ -1,9 +1,25 @@
+import { useEffect } from "react";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { Card, Form, Input, Button } from "antd";
-import { Link } from "react-router-dom";
 import useLogin from "../customHooks/useLogin";
+import { useSelector } from "react-redux";
 
 const Login = () => {
-    const {  onLogin, loading } = useLogin()
+  const { onLogin, loading } = useLogin();
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const navigate = useNavigate();
+  const { search } = useLocation();
+  const sp = new URLSearchParams(search);
+  const redirect = sp.get("redirect") || "/";
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirect);
+    }
+  }, [navigate, redirect, userInfo]);
+
   return (
     <div className="min-h-[100svh] flex items-center justify-center bg-[#f5f5f5]">
       <Card className="max-w-[30rem] w-[90%]">
