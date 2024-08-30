@@ -31,10 +31,14 @@ const Header = () => {
   };
 
   return (
-    <header>
-      <Navbar bg="primary" variant="dark" expand="lg" collapseOnSelect>
+    <header className=" sticky top-0 z-10 backdrop-blur	">
+      <Navbar bg="primary" variant="dark" expand="md" collapseOnSelect>
         <Container>
-          <Navbar.Brand as={Link} to="/">
+          <Navbar.Brand
+            className="flex justify-center items-center"
+            as={Link}
+            to="/"
+          >
             <img src={logo} alt="ProShop" />
             ProShop
           </Navbar.Brand>
