@@ -1,32 +1,18 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import Login from "./views/Login"
-import Register from "./views/Register"
-import { App as AntdApp } from "antd"
-import Dashboard from "./views/Dashboard"
-import ProtectedRoutes from "./ProtectedRoutes"
+import { Outlet } from "react-router-dom";
+import { App as AntdApp } from "antd";
+import ProtectedRoutes from "./ProtectedRoutes";
+import Header from "./components/Header";
+import { Container } from "react-bootstrap";
 
 const App = () => {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      Component: Login
-    },
-    {
-      path: "/register",
-      Component: Register
-    },
-    {
-      path: "/dashboard",
-      element: <ProtectedRoutes>
-        <Dashboard />
-      </ProtectedRoutes>
-    }
-  ])
   return (
     <AntdApp>
-      <RouterProvider router={router} />
+      <Header />
+      <Container>
+        <Outlet />
+      </Container>
     </AntdApp>
-  )
-}
+  );
+};
 
-export default App
+export default App;

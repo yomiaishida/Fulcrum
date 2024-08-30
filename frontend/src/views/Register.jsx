@@ -1,9 +1,27 @@
+import { useEffect } from "react";
 import { Card, Form, Input, Button } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useRegister from "../customHooks/useRegister";
+import { useSelector } from "react-redux";
 
 const Register = () => {
   const { onRegister, loading } = useRegister();
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const navigate = useNavigate();
+
+  const { search } = useLocation();
+
+  const sp = new URLSearchParams(search);
+  const redirect = sp.get("redirect") || "/";
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirect);
+    }
+  }, [navigate, redirect, userInfo]);
+
   return (
     <div className="min-h-[100svh] flex items-center justify-center bg-[#f5f5f5]">
       <Card className="max-w-[30rem] w-[90%]">
@@ -15,7 +33,7 @@ const Register = () => {
           onFinish={onRegister}
         >
           <Form.Item
-            name="fullName"
+            name="name"
             label="Full Name"
             rules={[{ required: true, message: "Full name is required" }]}
           >
@@ -58,23 +76,16 @@ const Register = () => {
           <Form.Item
             name="password"
             label="Password"
-            rules={[
-              { required: true, message: "Password is required" },
-              {
-                pattern:
-                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                message: "Password not strong enough",
-              },
-            ]}
+            rules={[{ required: true, message: "Password is required" }]}
           >
             <Input.Password />
           </Form.Item>
           <Button type="primary" loading={loading} htmlType="submit" block>
             Register
           </Button>
-          <div className="my-10 text-center">
+          <div className="my-2 text-center">
             Already have an account?{" "}
-            <Link to="/" className="text-[#1677ff]">
+            <Link to="/login" className="text-[#1677ff]">
               Login
             </Link>
           </div>

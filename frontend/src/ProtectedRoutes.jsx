@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
-import { Navigate } from "react-router-dom"
+import { Navigate } from "react-router-dom";
 
 const ProtectedRoutes = ({ children }) => {
-  if (!sessionStorage.getItem("***")) {
-    return <Navigate to="/" replace />
+  if (!localStorage.getItem("userInfo")) {
+    return <Navigate to="/" replace />;
   }
 
-  return children
-}
+  return children;
+};
 
-export default ProtectedRoutes
+export default ProtectedRoutes;
