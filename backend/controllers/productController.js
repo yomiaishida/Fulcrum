@@ -5,7 +5,7 @@ import Product from "../models/productModel.js";
 // @route Get /api/products
 // @access Public
 const getProducts = asyncHandler(async (req, res) => {
-  const pageSize = 10;
+  const pageSize = process.env.PAGINATION_LIMIT;
   const page = Number(req.query.pageNumber) || 1;
 
   const keyword = req.query.keyword
@@ -39,21 +39,6 @@ const getProductById = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Delete a product
-// @route DELETE /api/products/:id
-// @access Private/Admin
-const deleteProduct = asyncHandler(async (req, res) => {
-  const product = await Product.findById(req.params.id);
-
-  if (product) {
-    await product.remove();
-    res.json({ message: "Product removed" });
-  } else {
-    res.status(404);
-    throw new Error("Product not found");
-  }
-});
-
 // @desc Create product
 // @route POST /api/products
 // @access Private/Admin
@@ -62,7 +47,7 @@ const createProduct = asyncHandler(async (req, res) => {
     name: "Sample name",
     price: 0,
     user: req.user._id,
-    image: "/images/sample.jpg",
+    image: "/images/sample.png",
     brand: "Sample brand",
     category: "Sample category",
     countInStock: 0,
@@ -94,6 +79,21 @@ const updateProduct = asyncHandler(async (req, res) => {
 
     const updatedProduct = await product.save();
     res.json(updatedProduct);
+  } else {
+    res.status(404);
+    throw new Error("Product not found");
+  }
+});
+
+// @desc Delete a product
+// @route DELETE /api/products/:id
+// @access Private/Admin
+const deleteProduct = asyncHandler(async (req, res) => {
+  const product = await Product.findById(req.params.id);
+
+  if (product) {
+    await Product.deleteOne({ _id: product._id });
+    res.json({ message: "Product removed" });
   } else {
     res.status(404);
     throw new Error("Product not found");
