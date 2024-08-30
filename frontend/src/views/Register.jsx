@@ -83,7 +83,7 @@ const Register = () => {
           <Button type="primary" loading={loading} htmlType="submit" block>
             Register
           </Button>
-          <div className="my-10 text-center">
+          <div className="my-2 text-center">
             Already have an account?{" "}
             <Link to="/login" className="text-[#1677ff]">
               Login

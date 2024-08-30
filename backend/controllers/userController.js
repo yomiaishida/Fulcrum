@@ -27,6 +27,8 @@ const authUser = asyncHandler(async (req, res) => {
   }
 
   if (user && (await user.matchPassword(password))) {
+    generateToken(res, user._id);
+
     res.json({
       responseCode: apiResponseCode.SUCCESSFUL,
       responseMessage: `${email} login successfully`,
@@ -37,7 +39,6 @@ const authUser = asyncHandler(async (req, res) => {
         isAdmin: user.isAdmin,
         phoneNumber: user.phoneNumber,
         username: user.username,
-        token: generateToken(user._id),
       },
     });
   } else {
@@ -100,6 +101,8 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
+    generateToken(res, user._id);
+
     res.status(201).json({
       responseCode: apiResponseCode.SUCCESSFUL,
       responseMessage: `${email} registered successfully`,
@@ -110,7 +113,6 @@ const registerUser = asyncHandler(async (req, res) => {
         isAdmin: user.isAdmin,
         username: user.username,
         phoneNumber: user.phoneNumber,
-        token: generateToken(user._id),
       },
     });
   } else {
@@ -118,6 +120,17 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("Invalid user data");
   }
 });
+
+// @desc Logout user / clear cookie
+// @route POST /api/users/logout
+// @access Public
+const logoutUser = (req, res) => {
+  res.clearCookie("jwt");
+  res.status(200).json({
+    responseCode: apiResponseCode.SUCCESSFUL,
+    responseMessage: "Logged out successfully",
+  });
+};
 
 // @desc Get user profile
 // @route GET /api/users/profile
@@ -231,6 +244,7 @@ const updateUser = asyncHandler(async (req, res) => {
 export {
   authUser,
   registerUser,
+  logoutUser,
   getUserProfile,
   updateUserProfile,
   getUsers,
