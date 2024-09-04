@@ -22,6 +22,7 @@ import Login from "./views/Login.jsx";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Users from "./views/Users";
 import ProductScreen from "./views/ProductScreen.jsx";
+import CartScreen from "./views/CartScreen.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +32,7 @@ const router = createBrowserRouter(
       <Route path="/register" element={<Register />} />
       <Route path="/users" element={<Users />} />
       <Route path="/product/:id" element={<ProductScreen />} />
+      <Route path="/cart" element={<CartScreen />} />
     </Route>
   )
 );
