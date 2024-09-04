@@ -10,6 +10,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import "./index.css";
+
+import "./assets/styles/bootstrap.custom.css";
+import "./assets/styles/index.css";
 import { Provider } from "react-redux";
 import store from "./store.js";
 import { HelmetProvider } from "react-helmet-async";
@@ -18,6 +21,7 @@ import Register from "./views/Register.jsx";
 import Login from "./views/Login.jsx";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Users from "./views/Users";
+import ProductScreen from "./views/ProductScreen.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +30,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/users" element={<Users />} />
+      <Route path="/product/:id" element={<ProductScreen />} />
     </Route>
   )
 );
