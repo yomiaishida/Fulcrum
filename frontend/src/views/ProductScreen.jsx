@@ -11,7 +11,7 @@ import {
   Button,
   Form,
 } from "react-bootstrap";
-import { toast } from "react-toastify";
+import useNotification from "../customHooks/useNotification";
 import {
   useGetProductDetailsQuery,
   useCreateReviewMutation,
@@ -24,6 +24,7 @@ import { addToCart } from "../slices/cartSlice";
 
 const ProductScreen = () => {
   const { id: productId } = useParams();
+  const { onNotify } = useNotification();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -59,9 +60,11 @@ const ProductScreen = () => {
         comment,
       }).unwrap();
       refetch();
-      toast.success("Review created successfully");
+      // toast.success("Review created successfully");
+      onNotify("success", "Successful", "Review created successfully");
     } catch (err) {
-      toast.error(err?.data?.message || err.error);
+      // toast.error(err?.data?.message || err.error);
+      onNotify("error", "Error", err?.data?.message || err.error);
     }
   };
 

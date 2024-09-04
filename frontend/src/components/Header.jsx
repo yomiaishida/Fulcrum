@@ -31,23 +31,28 @@ const Header = () => {
   };
 
   return (
-    <header className=" sticky top-0 z-10 backdrop-blur	">
-      <Navbar bg="primary" variant="dark" expand="md" collapseOnSelect>
+    <header className="sticky top-0 z-10 shadow-sm backdrop-blur	">
+      <Navbar bg="" variant="dark" expand="md" collapseOnSelect>
         <Container>
           <Navbar.Brand
             className="flex justify-center items-center"
             as={Link}
             to="/"
           >
-            <img src={logo} alt="ProShop" />
-            ProShop
+            <img src={logo} alt="ProShop" className=" bg-[#001f3f]" />
+            <span className="text-[#001f3f]">ProShop</span>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
               <SearchBox />
-              <Nav.Link as={Link} to="/cart">
-                <FaShoppingCart /> Cart
+              <Nav.Link
+                as={Link}
+                to="/cart"
+                className="flex space-x-1 items-center"
+              >
+                <FaShoppingCart style={{ color: "#001f3f" }} />{" "}
+                <span className="text-[#001f3f] ">Cart</span>
                 {cartItems.length > 0 && (
                   <Badge pill bg="success" style={{ marginLeft: "5px" }}>
                     {cartItems.reduce((a, c) => a + c.qty, 0)}
@@ -66,8 +71,13 @@ const Header = () => {
                   </NavDropdown>
                 </>
               ) : (
-                <Nav.Link as={Link} to="/login">
-                  <FaUser /> Sign In
+                <Nav.Link
+                  as={Link}
+                  to="/login"
+                  className="flex space-x-1 items-center"
+                >
+                  <FaUser style={{ color: "#001f3f" }} />{" "}
+                  <span className="text-[#333333]">Sign In</span>
                 </Nav.Link>
               )}
 

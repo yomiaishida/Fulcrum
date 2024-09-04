@@ -7,7 +7,7 @@ const App = () => {
   return (
     <AntdApp>
       <Header />
-      <main className="py-3">
+      <main className="py-10">
         <Container>
           <Outlet />
         </Container>

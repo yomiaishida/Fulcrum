@@ -3,7 +3,7 @@ import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 // eslint-disable-next-line react/prop-types, no-unused-vars
 const Rating = ({ value, text, color }) => {
   return (
-    <div className="rating">
+    <div className="rating flex flex-row">
       <span>
         {value >= 1 ? (
           <FaStar />
