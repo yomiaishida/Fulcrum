@@ -1,0 +1,77 @@
+.Dashboard{
+    
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: white;
+  
+  }
+  .DashHeader{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size:1rem;
+    font-weight: 400;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 20px 5px;
+  
+    
+  }
+  h2{  
+    position: absolute;
+    left: 40%;
+  
+  }
+
+
+.content{
+  display: flex;
+  flex: 1;
+  justify-content: flex-start;
+  align-items: flex-start;
+  
+}
+
+.page{
+
+  margin-top: 2rem;
+  padding-left: 7rem;
+  
+}
+.cards{
+  margin-left: 10rem;
+  margin-bottom: 1.5rem;
+  gap: 3rem;
+  
+
+}
+.Orders{
+  margin-left: 13rem;
+  margin-top: 22rem;
+  
+}
+.chart{
+  position: absolute;
+  left: 12%;
+  bottom: 50%;
+  
+}
+
+.icon{
+  margin-top: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.DashFooter{
+  height: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  
+  font-weight: 600;
+  
+}

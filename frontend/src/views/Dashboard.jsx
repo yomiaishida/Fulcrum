@@ -1,11 +1,23 @@
-import { Card } from "antd";
+import {Space } from "antd";
+
+import 'antd/dist/reset.css';
+import '../component/dashboard/dashboard.css';
+import DashFooter from "../component/dashboard/DashFooter";
+import PageContent from "../component/dashboard/PageContent";
+import DashHeader from "../component/dashboard/DashHeader";
+
+
+
 const Dashboard = () => {
   return (
-    <div className="min-h-[100svh] flex items-center justify-center bg-[#f5f5f5]">
-      <Card className="max-w-[30rem] w-[90%]">
-        <h1 className="font-bold text-center text-2xl">Dashboard</h1>
-        <p className="text-center">Welcome to you dashboard</p>
-      </Card>
+    <div className="Dashboard">
+  <DashHeader/>
+  <Space className="content">
+    
+    <PageContent></PageContent>
+    
+  </Space>
+  <DashFooter/>
     </div>
   );
 };

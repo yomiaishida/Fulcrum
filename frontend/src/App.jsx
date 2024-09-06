@@ -5,6 +5,8 @@ import { App as AntdApp } from "antd"
 import Dashboard from "./views/Dashboard"
 import ProtectedRoutes from "./ProtectedRoutes"
 
+
+
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -15,12 +17,13 @@ const App = () => {
       path: "/register",
       Component: Register
     },
-    {
+   {
       path: "/dashboard",
       element: <ProtectedRoutes>
         <Dashboard />
       </ProtectedRoutes>
-    }
+    },
+    
   ])
   return (
     <AntdApp>
@@ -29,4 +32,7 @@ const App = () => {
   )
 }
 
-export default App
+export default App;
+
+
+
