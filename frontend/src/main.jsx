@@ -20,7 +20,6 @@ import HomeScreen from "./views/HomeScreen.jsx";
 import Register from "./views/Register.jsx";
 import Login from "./views/Login.jsx";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
-import Users from "./views/Users";
 import ProductScreen from "./views/ProductScreen.jsx";
 import CartScreen from "./views/CartScreen.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
@@ -28,6 +27,8 @@ import ProfileScreen from "./views/ProfileScreen.jsx";
 import AdminDashboard from "./views/admin/AdminDashboard";
 import AdminRoute from "./components/AdminRoute";
 import UserListScreen from "./views/admin/UserListScreen";
+import ProductListScreen from "./views/admin/ProductListScreen";
+import ShippingScreen from "./views/ShippingScreen";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -45,8 +46,10 @@ const router = createBrowserRouter(
 
       {/* Admin users */}
       <Route path="" element={<AdminRoute />}>
+        <Route path="/shipping" element={<ShippingScreen />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/userlist" element={<UserListScreen />} />
+        <Route path="/admin/productlist" element={<ProductListScreen />} />
       </Route>
     </Route>
   )

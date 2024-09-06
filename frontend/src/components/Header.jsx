@@ -40,7 +40,7 @@ const Header = () => {
             to="/"
           >
             <img src={logo} alt="ProShop" className=" bg-[#001f3f]" />
-            <span className="text-[#001f3f]">ProShop</span>
+            <span className="text-[#001f3f]">ProGadget</span>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
