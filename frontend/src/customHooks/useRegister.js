@@ -29,7 +29,7 @@ const useRegister = () => {
         dispatch(setCredentials(response.data));
 
         setTimeout(() => {
-          return navigate("/dashboard");
+          return navigate("/");
         }, 2000);
       } else {
         onNotify("error", "Error occured", response?.responseMessage);

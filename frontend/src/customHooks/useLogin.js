@@ -23,7 +23,7 @@ const useLogin = () => {
 
         dispatch(setCredentials(response.data)); // Set user credentials in Redux store
         setTimeout(() => {
-          navigate("/dashboard", { replace: true });
+          navigate("/", { replace: true });
         }, 2000);
       } else {
         console.log(response);
