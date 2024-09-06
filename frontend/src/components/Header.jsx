@@ -61,8 +61,16 @@ const Header = () => {
               </Nav.Link>
               {userInfo ? (
                 <>
-                  <NavDropdown title={userInfo.name} id="username">
-                    <NavDropdown.Item as={Link} to="/profile">
+                  <NavDropdown
+                    className="bg-slate-600 border rounded-md"
+                    title={userInfo.name}
+                    id="username"
+                  >
+                    <NavDropdown.Item
+                      style={{ color: "#001f3f" }}
+                      as={Link}
+                      to="/profile"
+                    >
                       Profile
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={logoutHandler}>
@@ -83,7 +91,14 @@ const Header = () => {
 
               {/* Admin Links */}
               {userInfo && userInfo.isAdmin && (
-                <NavDropdown title="Admin" id="adminmenu">
+                <NavDropdown
+                  className="border rounded-md bg-slate-600"
+                  title="Admin"
+                  id="adminmenu"
+                >
+                  <NavDropdown.Item as={Link} to="/admin/dashboard">
+                    Dashboard
+                  </NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/admin/productlist">
                     Products
                   </NavDropdown.Item>

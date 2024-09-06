@@ -38,20 +38,7 @@ const userSchema = mongoose.Schema(
 );
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
-  const isPasswordMatched = await bcrypt.compare(
-    enteredPassword,
-    this.password
-  );
-
-  if (!isPasswordMatched) {
-    return {
-      responseCode: apiResponseCode.BAD_REQUEST,
-      responseMessage: "Invalid credentials",
-      data: null,
-    };
-  }
-
-  return isPasswordMatched;
+  return await bcrypt.compare(enteredPassword, this.password);
 };
 
 userSchema.pre("save", async function (next) {

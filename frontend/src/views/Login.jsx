@@ -23,7 +23,7 @@ const Login = () => {
   return (
     <div className="min-h-[100svh] flex items-center justify-center bg-[#f5f5f5]">
       <Card className="max-w-[30rem] w-[90%]">
-        <h1 className="font-bold text-center text-2xl">Login Form</h1>
+        <h1 className="font-bold text-center text-2xl">Login</h1>
         <Form
           layout="vertical"
           labelCol={{ span: 24 }}
