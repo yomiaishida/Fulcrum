@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import dbConnection from "./db/dbConnection.js";
 import userRoutes from "./routes/userRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 import cors from "cors";
@@ -18,6 +19,7 @@ app.use(cookieParser());
 //Routes
 app.use("/api/auth", userRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/orders", orderRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

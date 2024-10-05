@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 import PropTypes from "prop-types";
 
 const Meta = ({
-  title = "Welcome To ProShop",
+  title = "Welcome To ProGardget",
   description = "We sell the best products for cheap",
   keywords = "electronics, buy electronics, cheap electronics",
 }) => {
